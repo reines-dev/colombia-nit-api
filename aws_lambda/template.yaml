@@ -1,0 +1,32 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  Plataforma de Consolidación de Datos Empresariales (NIT) - AWS Lambda
+
+Globals:
+  Function:
+    Timeout: 30
+    MemorySize: 128
+    Runtime: python3.9
+
+Resources:
+  ConsultaNitFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: aws_lambda.lambda_handler.lambda_handler
+      CodeUri: .
+      Environment:
+        Variables:
+          DATOS_GOV_CO_URL: "https://www.datos.gov.co/resource/c82u-588k.json"
+          RUES_URL: "https://ruesapi.rues.org.co/WEB2/api/Expediente/DetalleRM"
+      Events:
+        ApiEvent:
+          Type: Api
+          Properties:
+            Path: /consulta_nit
+            Method: any
+
+Outputs:
+  ApiUrl:
+    Description: "API Gateway endpoint URL para la función de consulta de NIT"
+    Value: !Sub "https://<ServerlessRestApi>.execute-api.${AWS::Region}.amazonaws.com/Prod/consulta_nit/"

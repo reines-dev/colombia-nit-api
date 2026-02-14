@@ -1,0 +1,14 @@
+# Uncomment to enable Azure Monitor OpenTelemetry
+# Ref: aka.ms/functions-azure-monitor-python
+# azure-monitor-opentelemetry
+
+azure-functions
+requests
+pydantic
+python-dotenv
+functions-framework
+
+# Development and Testing
+pytest
+requests-mock
+aws-sam-cli
